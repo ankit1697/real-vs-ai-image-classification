@@ -188,6 +188,13 @@ evaluate_model()
 ## Bayesian Inference for Uncertainty Estimation
 Now that the model is trained, we implement **Bayesian Inference using Monte Carlo Dropout** to estimate model confidence levels for each prediction. Instead of making a single deterministic prediction, we perform multiple forward passes (num_samples = 200) while keeping dropout layers active.
 
+$p(y \mid x, D) \approx \frac{1}{T} \sum_{t=1}^{T} p(y \mid x, W_t)$
+
+where:
+-   $p(y \mid x, D)$ is the predicted probability distribution given input $x$ and training data $D$.
+-   $T$ is the number of stochastic forward passes (e.g., **200** in our implementation).
+-   $W_t$​ represents the model parameters with **dropout applied** during inference.
+
 While Step 6 gives us accuracy, it doesn't provide insights into **how confident the model is** in its predictions. This step adds uncertainty estimation, making our classifier more robust, especially for ambiguous images.
 ```
 def  bayesian_inference(model, feature_vector, num_samples=200):
@@ -246,3 +253,164 @@ def  compute_feature_importance(model, feature_vector):
 - **Backward Pass for Gradient Computation**:
  --   We call `.backward()` on the predicted class’s output. This propagates gradients back to the feature vector, showing which parts of the feature representation were most influential.
  -- **Compute Feature Importance**: The absolute values of the **gradients** tell us how much each feature contributed to the prediction.
+
+## Visualizing Feature Importance on the Image
+This step adds a visual representation to highlight the most influential image regions.
+
+$$
+I(x_i) = \left| \frac{\partial f(x)}{\partial x_i} \right|
+$$
+where:
+-   $I(x_i)$ is the importance of the $i$-th feature.
+-   $f(x)$ is the model’s prediction function.
+-   $\frac{\partial f(x)}{\partial x_i}$​ is the gradient of the output with respect to the feature $x_i​$.
+-   Taking the **absolute value** ensures importance is always positive.
+```
+from matplotlib.patches import Rectangle
+
+def  visualize_feature_importance(image, feature_importance, patch_size=16):
+	# Convert image to numpy array if it's a torch tensor
+	if  isinstance(image, torch.Tensor):
+		image = image.cpu().numpy()
+
+	# Remove batch dimension if present
+	if image.ndim == 4: # Shape: (1, C, H, W)
+		image = image.squeeze(0) # Remove batch dimension -> (C, H, W)
+
+	# Transpose image to (H, W, C) if necessary
+	if image.shape[0] == 3: # Shape: (C, H, W)
+		image = np.transpose(image, (1, 2, 0)) # Transpose to (H, W, C)
+
+	# Get image dimensions
+	if  len(image.shape) == 2: # Grayscale image (H, W)
+		H, W = image.shape
+		C = 1  # Single channel
+	elif  len(image.shape) == 3: # RGB image (H, W, C)
+		H, W, C = image.shape
+	else:
+		raise  ValueError(f"Unsupported image shape: {image.shape}")
+
+	# Calculate the number of patches along height and width
+	H_patches = H // patch_size
+	W_patches = W // patch_size
+
+	# Check if the feature importance size matches the patch grid
+	if feature_importance.size != H_patches * W_patches:
+		print(f"Feature importance size {feature_importance.size} does not match patch grid {H_patches}x{W_patches}.")
+		print("Reshaping feature importance to match the patch grid.")
+		# Reshape feature_importance to the nearest square dimensions
+		size = int(np.sqrt(feature_importance.size))
+		feature_importance = feature_importance[:size * size].reshape(size, size)
+		H_patches, W_patches = size, size # Update patch grid dimensions
+
+	# Create a figure to display the image
+	plt.figure(figsize=(10, 5))
+	if C == 1: # Grayscale image
+	plt.imshow(image, cmap='gray')
+	else: # RGB image
+	plt.imshow(image)
+
+	# Overlay patches with feature importance
+	for i in  range(H_patches):
+		for j in  range(W_patches):
+			importance = feature_importance[i, j]
+			# Clip alpha to the range [0, 1]
+			alpha = np.clip(importance, 0, 1)
+			# Draw a rectangle for each patch
+			rect = Rectangle(
+			(j * patch_size, i * patch_size), # (x, y) of the patch
+			patch_size, patch_size, # Width and height of the patch
+			linewidth=1, edgecolor='r', facecolor='yellow', alpha=alpha
+			)
+			plt.gca().add_patch(rect)
+
+	plt.colorbar(label='Feature Importance')
+	plt.title('Feature Importance Visualization (Patches)')
+	plt.axis('off')
+	plt.show()
+```
+- **Preprocesses Image for Visualization** – Converts PyTorch tensors into NumPy arrays and ensures correct formatting (`(H, W, C)`).  
+- **Divides Image into Patches** – Uses `patch_size = 16` to match the **DINO ViT’s feature extraction resolution**.  
+- **Maps Feature Importance onto Image**:
+ -- Uses **alpha blending** to overlay feature importance patches.
+ -- More important patches are highlighted more strongly.  
+ -- **Handles Reshaping Issues** – Adjusts feature importance dimensions if they do not match the patch grid.  
+ 
+## Classifying real-world images
+```
+def  preprocess_image(image_path):
+	image = Image.open(image_path).convert("RGB")
+	image = transform(image).unsqueeze(0) # Add batch dimension
+	return image
+
+def  predict_image(image_path, uncertainty_threshold_multiplier=1.0, top_n=10, patch_size=16):
+	# Preprocess Image & Extract Features
+	image = preprocess_image(image_path)
+	features = extract_features(image)
+
+	# Predict Class (Standard Inference)
+	classifier.eval()
+	with torch.no_grad():
+		output = classifier(features)
+		probabilities = torch.nn.functional.softmax(output, dim=1).squeeze().cpu().numpy()
+	class_idx = np.argmax(probabilities) # Get predicted class (AI or Real)
+	confidence = probabilities[class_idx] # Get confidence score
+	  
+	print(f"Predicted Class: {dataset.classes[class_idx]}")
+	print(f"Confidence: {confidence:.4f}")
+
+	# Run Bayesian Inference (MC Dropout)
+	mean_pred, uncertainty, feature_importance = bayesian_inference(classifier, features)
+
+	# Compute Uncertainty for Predicted Class
+	uncertainty = uncertainty.squeeze() # Ensure uncertainty is 1D
+
+	# Handle unexpected uncertainty shape
+	if uncertainty.ndim > 1  or  len(uncertainty) <= class_idx:
+		print("Unexpected Uncertainty Shape, Defaulting to Mean Uncertainty")
+	uncertainty_score = float(np.mean(uncertainty)) # Default to mean if incorrect shape
+	else:
+		uncertainty_score = float(uncertainty[class_idx]) # Extract as a scalar
+
+	print(f"Bayesian Uncertainty: {uncertainty_score:.4f}")
+
+	# Visualize Feature Importance
+	visualize_feature_importance(image, feature_importance, patch_size=patch_size) # Visualize important patches
+
+	return dataset.classes[class_idx], confidence, uncertainty_score, feature_importance
+```
+Finally, we build a full prediction pipeline for classifying new images. This function allows us to input an image, classify it, measure uncertainty, and visualize what influenced the model’s decision.
+
+#### `preprocess_image(image_path)`
+- Loads an image from disk using `PIL.Image`.  
+- Converts it to RGB format.  
+- Applies the same `transform` pipeline used in training.  
+- Adds a **batch dimension** (`unsqueeze(0)`) so it matches model expectations.
+
+#### `predict_image(image_path, uncertainty_threshold_multiplier=1.0, top_n=10, patch_size=16)`
+- Preprocess Image & Extract Features using `preprocess_image(image_path)` and `extract_features(image)` respectively
+
+- Standard Inference (Baseline Prediction): Performs **softmax activation** to obtain class probabilities and extracts the predicted class index and confidence score.
+
+- Bayesian Inference for Uncertainty Estimation: Calls `bayesian_inference(classifier, features)` to get Mean prediction over multiple MC Dropout runs (`mean_pred`), Standard deviation across runs (`uncertainty`), and Gradient-based importance scores (`feature_importance`).
+
+- Compute Uncertainty Score: Extract uncertainty for the predicted class
+
+## Final Output
+```
+image_path = 'PATH_TO_IMAGE'
+predict_image(image_path)
+```
+
+<img src='https://media-hosting.imagekit.io//39d5e1eb9bd64aa3/Screenshot%202025-03-12%20at%203.16.07%20PM.png?Expires=1836418635&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=xak~gTbByNPb960CtQjLbIINsOJKANivhVUvKcWkoqYzMHpgmz6aDdReQFMTG22fcsrgswMRc2R5GjZ3vCgxeLOuM0yyCfgPQNLhD7-fpnQKS8sMrrDCnG0X0QNdNjiFYyWNse6uJeSznnwEDf86mBUd2Zs07yXdVZ2KFLmtuT6oCqZrHMDQZ39wsdWMe0mw2QmgNxA5T50GoBDLlNz3fS3DPEi2wyHiAGyQPc9J4ZzLSEGB15SobkQ-CehPCDGMrTme-wmAjMe~EkaZe7-jhk5a64zeHJvATxYHn8MjzFoDicP4IGeXf3bLrU8KYACH801FlKUcBYoav-Cw9wsCiQ__' width=400>
+
+## Future Scope
+#### Improve Model Robustness Against Advanced AI-Generated Images
+Train on a Larger and More Diverse Dataset: Current models like Stable Diffusion 3 and MidJourney v6 generate highly realistic faces. Expanding the dataset to include newer synthetic images will enhance detection capabilities.
+
+#### Multi-Modal Detection (Beyond Images)
+- Extend Model to Video Deepfake Detection: Apply the classification framework to **frame-by-frame video analysis** to detect AI-generated videos.
+- Combine Image + Text Metadata: AI-generated content often comes with metadata traces. Integrating text-based cues can enhance classification.
+
+#### Explainability & Model Interpretability Enhancements
+Improve Feature Importance Visualization: Instead of using only gradient-based importance, explore **Grad-CAM** or **Saliency Graphs**
