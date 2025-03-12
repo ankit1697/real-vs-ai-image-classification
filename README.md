@@ -4,6 +4,27 @@
 <img src='https://cdn.lucidpic.com/cdn-cgi/image/w=600,format=auto,metadata=none/66c4384702f8f.png' width=200>
 </p>
 
+
+# Table of Contents
+1. [Problem Statement](#problem-statement)
+2. [Data](#data)
+3. [Process](#process)
+3.1. [Required Packages](#required-packages)
+3.2. [Load and Preprocess Data](#load-and-preprocess-data)
+3.3. [Load Pre-Trained Vision Transformer (ViT) and Extract Features](#load-pre-trained-vision-transformer-vit-and-extract-features)
+3.4. [Train-Test Split and DataLoader Creation](#train-test-split-and-dataloader-creation)
+3.5. [Bayesian Neural Network for Classification](#bayesian-neural-network-for-classification)
+3.6. [Model Training](#model-training)
+3.7. [Model Evaluation](#model-evaluation)
+3.8. [Bayesian Inference for Uncertainty Estimation](#bayesian-inference-for-uncertainty-estimation)
+3.9. [Feature Importance Analysis Using Gradients](#feature-importance-analysis-using-gradients)
+3.10. [Visualizing Feature Importance on the Image](#visualizing-feature-importance-on-the-image)
+4. [Classifying real-world images](#classifying-real-world-images)
+4.1. [Final Output](#final-output)
+
+
+# Problem Statement
+
 With the rise of generative AI, realistic AI-generated human faces are increasingly indistinguishable from real ones, posing risks in identity fraud, misinformation, and digital security. Organizations need robust solutions to detect and differentiate between real and synthetic faces to prevent deepfake misuse. Current detection methods lack accuracy and interpretability, making them unreliable for high-stakes applications.
 
 Our project addresses this challenge by developing an image classification framework using **Vision Transformers (ViTs) with Bayesian inference** for explainability. This model helps businesses, law enforcement, and media platforms detect AI-generated images with high confidence. By providing interpretable outputs, the framework enhances trust in automated detection systems.
