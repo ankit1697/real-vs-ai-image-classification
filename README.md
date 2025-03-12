@@ -1,6 +1,8 @@
 # Classifying Real vs AI-Generated Images
+<p float="left">
 <img src='https://media-hosting.imagekit.io//ef77d415f37542f1/Screenshot%202025-03-12%20at%201.10.11%20PM.png?Expires=1836411048&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PfTp-hDs5R6bPffykgC5-IUiND7FNtH8U4Sbg00vjvSq9UB4NVFuGTLLmz6v0L8yjYiW5vcIzIZi7VZsl5JOgKdpg~xT5OTTrJqUBlZrQSCT~MiClF9T~24l~M5OXp~MOotf9mY9XfpQYuAycxESZ-NzuudLX0rYjUPI386DigoPggq2SmHcrhzGjYyAOyba3CKI8Er86TVjMt5wJBPVKze9jxQ2EaDruoZ-7hSO76kYMeRm6hGTRboc4zr9r9RpjXn-qEYwEsWORSmXS2AOJ1tv8VSPIaOMTJRyulrgrAIaeydjj7d6IOUzVYf~gB~zg60WIdi168Tenp3eW67KsQ__' width=242>
 <img src='https://cdn.lucidpic.com/cdn-cgi/image/w=600,format=auto,metadata=none/66c4384702f8f.png' width=200>
+</p>
 
 With the rise of generative AI, realistic AI-generated human faces are increasingly indistinguishable from real ones, posing risks in identity fraud, misinformation, and digital security. Organizations need robust solutions to detect and differentiate between real and synthetic faces to prevent deepfake misuse. Current detection methods lack accuracy and interpretability, making them unreliable for high-stakes applications.
 
