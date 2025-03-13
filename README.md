@@ -423,7 +423,7 @@ image_path = 'PATH_TO_IMAGE'
 predict_image(image_path)
 ```
 
-<img src='https://media-hosting.imagekit.io//39d5e1eb9bd64aa3/Screenshot%202025-03-12%20at%203.16.07%20PM.png?Expires=1836418635&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=xak~gTbByNPb960CtQjLbIINsOJKANivhVUvKcWkoqYzMHpgmz6aDdReQFMTG22fcsrgswMRc2R5GjZ3vCgxeLOuM0yyCfgPQNLhD7-fpnQKS8sMrrDCnG0X0QNdNjiFYyWNse6uJeSznnwEDf86mBUd2Zs07yXdVZ2KFLmtuT6oCqZrHMDQZ39wsdWMe0mw2QmgNxA5T50GoBDLlNz3fS3DPEi2wyHiAGyQPc9J4ZzLSEGB15SobkQ-CehPCDGMrTme-wmAjMe~EkaZe7-jhk5a64zeHJvATxYHn8MjzFoDicP4IGeXf3bLrU8KYACH801FlKUcBYoav-Cw9wsCiQ__' width=400>
+<img src='[https://media-hosting.imagekit.io//39d5e1eb9bd64aa3/Screenshot%202025-03-12%20at%203.16.07%20PM.png?Expires=1836418635&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=xak~gTbByNPb960CtQjLbIINsOJKANivhVUvKcWkoqYzMHpgmz6aDdReQFMTG22fcsrgswMRc2R5GjZ3vCgxeLOuM0yyCfgPQNLhD7-fpnQKS8sMrrDCnG0X0QNdNjiFYyWNse6uJeSznnwEDf86mBUd2Zs07yXdVZ2KFLmtuT6oCqZrHMDQZ39wsdWMe0mw2QmgNxA5T50GoBDLlNz3fS3DPEi2wyHiAGyQPc9J4ZzLSEGB15SobkQ-CehPCDGMrTme-wmAjMe~EkaZe7-jhk5a64zeHJvATxYHn8MjzFoDicP4IGeXf3bLrU8KYACH801FlKUcBYoav-Cw9wsCiQ__](https://media-hosting.imagekit.io//d877872a9bfb442d/Screenshot%202025-03-12%20at%2011.52.31%E2%80%AFPM.png?Expires=1836449582&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pO~duEL3ILzAQJiAVR~5WOha4jEwCsDMcCDEGXuaTCWH2DLLikLP5FeUWv7dOO375wj~uHbefDlPqmDK1EgHP-0ldMAhqZTeU1P3PgBWQQDTG63y1B3FF-6DI66iIq0LIsn3gzkW0636Tx6rFq2WaWXrku2ohOBfo35n~w8HjAJYaif-qj-3hc1oCTKXOy23yHvPxSsCNXCvQd7Xgo2eEQpn6WcqV29~z~EiPk5O1eIhSFmB1PlCGGlTgzGEdeG3RX3zjYjW1ku96QLQB6iUhwQWb5ECjVjQSIhEHOdNfiJon7zI65yBVhUqEec~mwEfDfFMWlPndTiJs4KpnL0mXQ__)' width=400>
 
 ## Future Scope
 #### Improve Model Robustness Against Advanced AI-Generated Images
