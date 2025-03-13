@@ -1,4 +1,5 @@
 
+
 # Classifying Real vs AI-Generated Images
 <p float="left">
 <img src='https://media-hosting.imagekit.io//ef77d415f37542f1/Screenshot%202025-03-12%20at%201.10.11%20PM.png?Expires=1836411048&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PfTp-hDs5R6bPffykgC5-IUiND7FNtH8U4Sbg00vjvSq9UB4NVFuGTLLmz6v0L8yjYiW5vcIzIZi7VZsl5JOgKdpg~xT5OTTrJqUBlZrQSCT~MiClF9T~24l~M5OXp~MOotf9mY9XfpQYuAycxESZ-NzuudLX0rYjUPI386DigoPggq2SmHcrhzGjYyAOyba3CKI8Er86TVjMt5wJBPVKze9jxQ2EaDruoZ-7hSO76kYMeRm6hGTRboc4zr9r9RpjXn-qEYwEsWORSmXS2AOJ1tv8VSPIaOMTJRyulrgrAIaeydjj7d6IOUzVYf~gB~zg60WIdi168Tenp3eW67KsQ__' width=242>
@@ -20,6 +21,7 @@
 	3.8. [Bayesian Inference for Uncertainty Estimation](#bayesian-inference-for-uncertainty-estimation)<br>
 	3.9. [Feature Importance Analysis Using Gradients](#feature-importance-analysis-using-gradients)<br>
 	3.10. [Visualizing Feature Importance on the Image](#visualizing-feature-importance-on-the-image)<br>
+	3.11. [Occlusion Sensitivity](#occlusion-sensitivity)
 4. [Classifying real-world images](#classifying-real-world-images)<br>
 4.1. [Final Output](#final-output)
 
@@ -359,8 +361,8 @@ def  visualize_feature_importance(image, feature_importance, patch_size=16):
 	plt.axis('off')
 	plt.show()
 ```
-- **Preprocesses Image for Visualization** – Converts PyTorch tensors into NumPy arrays and ensures correct formatting (`(H, W, C)`).  
-- **Divides Image into Patches** – Uses `patch_size = 16` to match the **DINO ViT’s feature extraction resolution**.  
+- **Preprocesses Image for Visualization**: Converts PyTorch tensors into NumPy arrays and ensures correct formatting (`(H, W, C)`).  
+- **Divides Image into Patches**: Uses `patch_size = 16` to match the **DINO ViT’s feature extraction resolution**.  
 - **Maps Feature Importance onto Image**:
  -- Uses **alpha blending** to overlay feature importance patches.
  -- More important patches are highlighted more strongly.  
@@ -425,6 +427,40 @@ Finally, we build a full prediction pipeline for classifying new images. This fu
 - Bayesian Inference for Uncertainty Estimation: Calls `bayesian_inference(classifier, features)` to get Mean prediction over multiple MC Dropout runs (`mean_pred`), Standard deviation across runs (`uncertainty`), and Gradient-based importance scores (`feature_importance`).
 
 - Compute Uncertainty Score: Extract uncertainty for the predicted class
+
+## Occlusion Sensitivity
+```
+def  occlusion_sensitivity(image, model, patch_size=16, stride=8):
+	image_np = image.squeeze().permute(1, 2, 0).cpu().numpy() # Convert to numpy
+	h, w, _ = image_np.shape
+
+	# Initialize the sensitivity map
+	sensitivity_map = np.zeros((h, w))
+
+	# Loop through the image with sliding window
+	for i in  range(0, h - patch_size, stride):
+		for j in  range(0, w - patch_size, stride):
+			# Create an occluded copy of the image
+			occluded_image = image.clone()
+			occluded_image[:, :, i:i+patch_size, j:j+patch_size] = 0  # Occlude the patch
+
+			# Extract features from occluded image
+			occluded_features = extract_features(occluded_image)
+
+			# Perform inference
+			with torch.no_grad():
+				output = model(occluded_features)
+				prob = torch.nn.functional.softmax(output, dim=1).cpu().numpy()
+
+			# Calculate the sensitivity score for the current patch
+			sensitivity_map[i:i+patch_size, j:j+patch_size] = prob[0, 1] # Sensitivity score for class 1 (AI-Generated)
+
+	return sensitivity_map
+```
+
+**Sliding Window Occlusion**: Moves a patch across the image, setting pixels to zero (blackout occlusion).
+**Feature Extraction & Prediction**: The occluded image is passed through DINOv2 and the classifier to check how the prediction changes.  
+**Sensitivity Mapping**: If occlusion lowers AI-generated confidence, that region is important for classification.
 
 ## Final Output
 ```
