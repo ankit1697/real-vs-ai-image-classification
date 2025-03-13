@@ -246,17 +246,17 @@ def  bayesian_inference(model, feature_vector, num_samples=200):
 	return  mean_pred, uncertainty, feature_importance
 ```
 
-- **`model.train()` During Inference** – Unlike normal inference, we keep dropout enabled to introduce randomness in predictions
+- **`model.train()` During Inference**: Unlike normal inference, we keep dropout enabled to introduce randomness in predictions
 
-- **Perform Multiple Stochastic Passes** (`num_samples = 200`) – Each pass provides a slightly different output due to the stochastic dropout.
-- **Convert Logits to Probabilities** – Use `softmax` to get class probabilities.  
-- **Compute Mean Prediction** – The average probability over multiple runs gives a more stable prediction.
-- **Estimate Uncertainty** – The standard deviation of predictions provides an uncertainty measure. Higher variance means the model is less confident.
+- **Perform Multiple Stochastic Passes** (`num_samples = 200`): Each pass provides a slightly different output due to the stochastic dropout.
+- **Convert Logits to Probabilities**: Use `softmax` to get class probabilities.  
+- **Compute Mean Prediction**: The average probability over multiple runs gives a more stable prediction.
+- **Estimate Uncertainty**: The standard deviation of predictions provides an uncertainty measure. Higher variance means the model is less confident.
 
 **Why This is Useful?**
--   **Trust & Reliability** – Helps detect cases where the model is uncertain.
--   **Better Decision-Making** – If uncertainty is high, human review may be required.
--   **Adversarial & Edge Case Detection** – Can identify hard-to-classify images.
+-   **Trust & Reliability**: Helps detect cases where the model is uncertain.
+-   **Better Decision-Making**: If uncertainty is high, human review may be required.
+-   **Adversarial & Edge Case Detection**: Can identify hard-to-classify images.
 
 
 ## Feature Importance Analysis Using Gradients
