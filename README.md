@@ -327,6 +327,7 @@ This step adds a visual representation to highlight the most influential image r
 $$
 I(x_i) = \left| \frac{\partial f(x)}{\partial x_i} \right|
 $$
+
 where:
 -   $I(x_i)$ is the importance of the $i$-th feature.
 -   $f(x)$ is the model’s prediction function.
