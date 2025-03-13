@@ -107,8 +107,6 @@ dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
 ```
 We load and preprocess the dataset to ensure efficient training while minimizing computational overhead. We use **torchvision.transforms** to resize images to **128x128 pixels**, reducing memory consumption and speeding up model training. The images are then converted into tensors using `ToTensor()`, making them compatible with PyTorch models.
 
-The dataset, stored in **ImageFolder format**, is loaded from the specified path and categorized into two classes: **'AI-Generated Images'** and **'Real Images'**. We use a **batch size of 16** in the `DataLoader` to balance computational efficiency and memory usage, while shuffling the data ensures randomness during training.
-
 ## Load Pre-Trained Vision Transformer (ViT) and Extract Features
 ```
 dino_model_name = "facebook/dino-vits16"
