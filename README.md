@@ -1,5 +1,3 @@
-
-
 # Classifying Real vs AI-Generated Images
 <p float="left">
 <img src='https://media-hosting.imagekit.io//ef77d415f37542f1/Screenshot%202025-03-12%20at%201.10.11%20PM.png?Expires=1836411048&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PfTp-hDs5R6bPffykgC5-IUiND7FNtH8U4Sbg00vjvSq9UB4NVFuGTLLmz6v0L8yjYiW5vcIzIZi7VZsl5JOgKdpg~xT5OTTrJqUBlZrQSCT~MiClF9T~24l~M5OXp~MOotf9mY9XfpQYuAycxESZ-NzuudLX0rYjUPI386DigoPggq2SmHcrhzGjYyAOyba3CKI8Er86TVjMt5wJBPVKze9jxQ2EaDruoZ-7hSO76kYMeRm6hGTRboc4zr9r9RpjXn-qEYwEsWORSmXS2AOJ1tv8VSPIaOMTJRyulrgrAIaeydjj7d6IOUzVYf~gB~zg60WIdi168Tenp3eW67KsQ__' width=300>
@@ -9,8 +7,9 @@
 
 # Table of Contents
 1. [Problem Statement](#problem-statement)
-2. [Data](#data)
-3. [Process](#process)<br>
+2. [The Difference](#the-difference)
+3. [Data](#data)
+4. [Process](#process)<br>
 	3.1. [Required Packages](#required-packages)<br>
 	3.2. [Load and Preprocess Data](#load-and-preprocess-data)<br>
 	3.3. [Load Pre-Trained Vision Transformer (ViT) and Extract Features](#load-pre-trained-vision-transformer-vit-and-extract-features)<br>
@@ -22,7 +21,7 @@
 	3.9. [Feature Importance Analysis Using Gradients](#feature-importance-analysis-using-gradients)<br>
 	3.10. [Visualizing Feature Importance on the Image](#visualizing-feature-importance-on-the-image)<br>
 	3.11. [Occlusion Sensitivity](#occlusion-sensitivity)
-4. [Classifying real-world images](#classifying-real-world-images)<br>
+5. [Classifying real-world images](#classifying-real-world-images)<br>
 4.1. [Final Output](#final-output)
 
 
@@ -33,6 +32,44 @@ With the rise of generative AI, realistic AI-generated human faces are increasin
 Our project addresses this challenge by developing an image classification framework using **Vision Transformers (ViTs) with Bayesian inference** for explainability. This model helps businesses, law enforcement, and media platforms detect AI-generated images with high confidence. By providing interpretable outputs, the framework enhances trust in automated detection systems.
 
 This solution is crucial for identity verification, content moderation, and safeguarding digital assets against AI-driven manipulation. As synthetic media continues to evolve, having a reliable and transparent classification system is essential for mitigating risks.
+
+# The Difference
+What makes AI-generated images different from Real images
+
+<img src='https://media-hosting.imagekit.io//6f352af2b44b40f4/DALL%C2%B7E%202025-03-13%2013.13.38%20-%20A%20side-by-side%20comparison%20of%20a%20real%20human%20face%20and%20an%20AI-generated%20human%20face,%20highlighting%20differences%20such%20as%20symmetry%20inconsistencies,%20unnatural%20sk.webp?Expires=1836497644&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=u2ciH6JG~HNPXjvec8ebsY7jLqSOdVUIsw-UJFeXvHvDeXTsOqhmSx7O7O4RqcgBz-wjiC9XwMSXHJv0Htm~3TSi2zcjvc60SXjc0oJd94Nix0-pwko5ApjSmEJ4DhtFhJRytYYGdZzrwmMEJJ6e5EXPH597lHiO99DGYzuW86cLuVTqSVWg5jIBsWmxQmmIiuARxeEp~xwZ9cKWHzWrDePSA2qizXexHKzF9k7b03zv4e6H3tjUUzCvKm1Br4oGDRFPXXuJLdFTSqTO5FvCMtu4R5icVXAz7RQ8bIkmeG8h0Zh1m9ROM1m-7U~Jc5KiFjVN~1HBABYBMuFNgE2VVQ__' width=400>
+
+**Frequency Artifacts & Texture Patterns**
+
+- Real Images follow natural frequency distributions, where textures and fine details (e.g., skin pores, hair strands) have gradual transitions.
+- AI-Generated Images may introduce unnatural high-frequency noise or excessive smoothness due to upsampling artifacts.
+
+Reference: Durall et al. (2020) - "Unmasking DeepFakes with Simple Features" (Fourier Transform-based detection) [[arXiv]](https://arxiv.org/abs/1911.00686).
+
+**Inconsistencies in Features**
+
+<img src='https://media-hosting.imagekit.io//f9b2b148e9354048/kids_doing_art_analysis-1024x576.png?Expires=1836498797&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=OlDYuZEBVEJ~sfcGuPsvOiQh~Oyt5~Zy-FnCmagoqMNHaDRk6uDyPerYHno~ftdQoFlgCd7USuiAZX0lwfoG4FIbIc8Aus6VeqkIgGmiBDy8~H4jgE6lBymO4GclfQ27uOL0VS1SiVXySXmv9Z7usj~fKeUxyJEzUcNOsXZzSoeNOwPGSrFBUp0Q8oWPsOodJDbJqODPxPzj1TWZ06m8frRLNOqLROVLmwaRLexrTjJC--HnW-rNpyX0sP8sBsiv70RgKZCqx8BTZySg6hJ~F5BkevoFVYT6XQuorwISOBjEY1KFpLVJn0IkZ9PIWDTeoTnQZGydfQTLEdQZzWbeSg__' width=400>
+
+- Real Faces exhibit natural asymmetry, but AI-generated faces often have perfect symmetry due to generator artifacts.
+- GAN-based models, especially StyleGAN, sometimes generate inconsistent eye colors, mismatched earrings, or asymmetric lighting.
+- Diffusion models like Stable Diffusion or MidJourney sometimes create distorted hands, extra fingers, or misaligned facial features.
+
+Reference: Nightingale & Farid (2022) - "Detection of GAN-Generated Imagery Using Statistical Inconsistencies" (Facial feature mismatches) [[Paper]](https://library.imaging.org/ei/articles/35/4/MWSF-380).
+
+**Lack of Natural Camera Artifacts**
+
+- Real Photos are captured using physical sensors that introduce sensor noise, lens distortion, and motion blur based on lighting conditions.
+- AI-Generated Images are cleaner than real images, often lacking these natural artifacts.
+
+Reference: Wang et al. (2020) - "CNN-Generated Images Are Surprisingly Easy to Spot" (Analyzing sensor noise patterns) [[Paper]](https://openaccess.thecvf.com/content_CVPR_2020/html/Wang_CNN-Generated_Images_Are_Surprisingly_Easy_to_Spot..._for_Now_CVPR_2020_paper.html).
+
+**Unnatural Shadows & Lighting Effects**
+
+<img src='https://media-hosting.imagekit.io//004acf3849e44008/titantic_analysis-1024x576.png?Expires=1836498853&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=E7XJey-qdiWfBfFp6b83ubPbUuc5bxG-6xplXdLXoV~gyALYpucchwPazTx6KJEN5SBGReD5aMl~qw7iR59D6VbLYDK1Hy8WF7C1LIw6ztunPrOPyBkDmgYAvRjtqPLD8qnNbo28fGEBRiItDO1oJLlFVkj7vOCKhqAGkoA7em93eCtf75ZKtgTHrz3-VYWltAHt-2DWv~CtQ08DeiONihJ9cfIdo3GGpXuiHOV9f26ArCriQ2CxxWT32UDtN5KTu10mPQQaHRVHNOxS9xj7bX73uGfWRXrlHK6-0heOzqHVlc6uNSvFCYN-hRNMqt4tETMy4HCXIrODlICFpvb1nw__' width=400>
+
+- Real Images follow consistent physics-based lighting models, where shadows, highlights, and reflections behave naturally.
+- AI-Generated Faces sometimes exhibit misaligned shadows or inconsistent reflections (e.g., teeth and lips reflecting light unrealistically).
+
+Reference: Zhou et al. (2020) - "DeepFake Detection Based on Illumination Inconsistencies" [[IEEE Paper]](https://link.springer.com/chapter/10.1007/978-3-031-06788-4_52).
 
 # Data
 
