@@ -434,6 +434,8 @@ predict_image(image_path)
 
 <img src='https://media-hosting.imagekit.io//d877872a9bfb442d/Screenshot%202025-03-12%20at%2011.52.31%E2%80%AFPM.png?Expires=1836449582&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pO~duEL3ILzAQJiAVR~5WOha4jEwCsDMcCDEGXuaTCWH2DLLikLP5FeUWv7dOO375wj~uHbefDlPqmDK1EgHP-0ldMAhqZTeU1P3PgBWQQDTG63y1B3FF-6DI66iIq0LIsn3gzkW0636Tx6rFq2WaWXrku2ohOBfo35n~w8HjAJYaif-qj-3hc1oCTKXOy23yHvPxSsCNXCvQd7Xgo2eEQpn6WcqV29~z~EiPk5O1eIhSFmB1PlCGGlTgzGEdeG3RX3zjYjW1ku96QLQB6iUhwQWb5ECjVjQSIhEHOdNfiJon7zI65yBVhUqEec~mwEfDfFMWlPndTiJs4KpnL0mXQ__' width=400>
 
+<img src='https://media-hosting.imagekit.io//6941be3d3ce6493c/Screenshot%202025-03-13%20at%202.04.37%E2%80%AFAM.png?Expires=1836457486&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=m9OTOWOvHeqBD350PvF0spnq-w1gye-J0E30idss39N7-VsqjmWE9INmrGt9Dp2ADJoc7n010zXiNBM9F4fhCTmoVeH2SmX58fIZFyfPXDqhd2JfLYuE7d8hAlzvujrpa6TrJakC8ZFvw759Z~YETwE-vG2UsyZGKD70kjzP1NtA26zUYwmnQ9un5bWuNOb~n8rxWwy0Yo-AQJv39hnqT5bkKM2yKzqck57ZwQxQPz3G2Rfn~iqAkJ94TDcR2iNsPmZSG-g38d9thlLi5UfIRAgLBjaC-DnSmFCu32CtW0CHKZP~-S~IqWs4dEt1sJ~P1B8-T6wJlMQGc6qEb0l6iw__' width=400>
+
 ## Future Scope
 #### Improve Model Robustness Against Advanced AI-Generated Images
 Train on a Larger and More Diverse Dataset: Current models like Stable Diffusion 3 and MidJourney v6 generate highly realistic faces. Expanding the dataset to include newer synthetic images will enhance detection capabilities.
