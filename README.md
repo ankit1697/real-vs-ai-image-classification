@@ -2,8 +2,8 @@
 
 # Classifying Real vs AI-Generated Images
 <p float="left">
-<img src='https://media-hosting.imagekit.io//ef77d415f37542f1/Screenshot%202025-03-12%20at%201.10.11%20PM.png?Expires=1836411048&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PfTp-hDs5R6bPffykgC5-IUiND7FNtH8U4Sbg00vjvSq9UB4NVFuGTLLmz6v0L8yjYiW5vcIzIZi7VZsl5JOgKdpg~xT5OTTrJqUBlZrQSCT~MiClF9T~24l~M5OXp~MOotf9mY9XfpQYuAycxESZ-NzuudLX0rYjUPI386DigoPggq2SmHcrhzGjYyAOyba3CKI8Er86TVjMt5wJBPVKze9jxQ2EaDruoZ-7hSO76kYMeRm6hGTRboc4zr9r9RpjXn-qEYwEsWORSmXS2AOJ1tv8VSPIaOMTJRyulrgrAIaeydjj7d6IOUzVYf~gB~zg60WIdi168Tenp3eW67KsQ__' width=242>
-<img src='https://cdn.lucidpic.com/cdn-cgi/image/w=600,format=auto,metadata=none/66c4384702f8f.png' width=200>
+<img src='https://media-hosting.imagekit.io//ef77d415f37542f1/Screenshot%202025-03-12%20at%201.10.11%20PM.png?Expires=1836411048&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=PfTp-hDs5R6bPffykgC5-IUiND7FNtH8U4Sbg00vjvSq9UB4NVFuGTLLmz6v0L8yjYiW5vcIzIZi7VZsl5JOgKdpg~xT5OTTrJqUBlZrQSCT~MiClF9T~24l~M5OXp~MOotf9mY9XfpQYuAycxESZ-NzuudLX0rYjUPI386DigoPggq2SmHcrhzGjYyAOyba3CKI8Er86TVjMt5wJBPVKze9jxQ2EaDruoZ-7hSO76kYMeRm6hGTRboc4zr9r9RpjXn-qEYwEsWORSmXS2AOJ1tv8VSPIaOMTJRyulrgrAIaeydjj7d6IOUzVYf~gB~zg60WIdi168Tenp3eW67KsQ__' width=300>
+<img src='https://media-hosting.imagekit.io//f4f04f412470469c/100k-ai-faces-6.jpg?Expires=1836494263&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=BWdWHOItUOfLzylPQ90Grdrf5xUssYxu7b69sYCUosnUsuvAWL~0V2I4PFLppmigd7YcCxJWH5W7zlbJk8tZz7Q9UDXy9xpk5pWoTWLOxRoUVoAgcikAbIa7r4Q6BnxnjETLJ1Bik6zh-54E-u3H9Zmj0MHPWc8E~3Pwk3ebfcIR9iOMuPFbMYGsVBJFTPpNpi5yYWzX0s33waYppnbPu-LES1mMTB-uz-hByJNjnQz2JEeC0d9hYb5fKURYK3PjzjPZ1coUOetAFIhpwni5q3s2WYILrOyxXClMgUO~irST68fkdX10B~wvUGkhyngSki591lhBQxoPwsiTCg9OjQ__' width=300>
 </p>
 
 
@@ -470,7 +470,7 @@ predict_image(image_path)
 
 <img src='https://media-hosting.imagekit.io//d877872a9bfb442d/Screenshot%202025-03-12%20at%2011.52.31%E2%80%AFPM.png?Expires=1836449582&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pO~duEL3ILzAQJiAVR~5WOha4jEwCsDMcCDEGXuaTCWH2DLLikLP5FeUWv7dOO375wj~uHbefDlPqmDK1EgHP-0ldMAhqZTeU1P3PgBWQQDTG63y1B3FF-6DI66iIq0LIsn3gzkW0636Tx6rFq2WaWXrku2ohOBfo35n~w8HjAJYaif-qj-3hc1oCTKXOy23yHvPxSsCNXCvQd7Xgo2eEQpn6WcqV29~z~EiPk5O1eIhSFmB1PlCGGlTgzGEdeG3RX3zjYjW1ku96QLQB6iUhwQWb5ECjVjQSIhEHOdNfiJon7zI65yBVhUqEec~mwEfDfFMWlPndTiJs4KpnL0mXQ__' width=400>
 
-<img src='https://media-hosting.imagekit.io//6941be3d3ce6493c/Screenshot%202025-03-13%20at%202.04.37%E2%80%AFAM.png?Expires=1836457486&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=m9OTOWOvHeqBD350PvF0spnq-w1gye-J0E30idss39N7-VsqjmWE9INmrGt9Dp2ADJoc7n010zXiNBM9F4fhCTmoVeH2SmX58fIZFyfPXDqhd2JfLYuE7d8hAlzvujrpa6TrJakC8ZFvw759Z~YETwE-vG2UsyZGKD70kjzP1NtA26zUYwmnQ9un5bWuNOb~n8rxWwy0Yo-AQJv39hnqT5bkKM2yKzqck57ZwQxQPz3G2Rfn~iqAkJ94TDcR2iNsPmZSG-g38d9thlLi5UfIRAgLBjaC-DnSmFCu32CtW0CHKZP~-S~IqWs4dEt1sJ~P1B8-T6wJlMQGc6qEb0l6iw__' width=400>
+<img src='https://media-hosting.imagekit.io//4004cfe517c64a79/Screenshot%202025-03-13%20at%2012.16.47%E2%80%AFPM.png?Expires=1836494220&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=0sQ~sVNu~zxMzOfrKy1uhivckKSJN6acXDKfimrNS9C~rWvdQTbCxNoSVKBO3lrQ2chDHbOYQy6BuTXGqt09twx3r2cYZ5qryagQ4aNrhh5EBeVSBmN6XekKKVJ54MB2iDx3XWc4qy6x7jWdoJWcurtL1lIkkO986LkNEZBhAySLr9X5zoxaUiJLqnZqb6T72VGKvOho-HPLeq1qdyhpNlzF2kbqPoWY7aopjswC2jHA0hxOqBocVf8t2XmSrdPmW7bp1yKUSvL~Q-TxSkZ1-1-uVSTKzQFhAESJfbLyYa-3uVwybk7LcbBGVP-B46kntm-zfqP7bbGW8rO1ehm5hw__' width=400>
 
 ## Future Scope
 #### Improve Model Robustness Against Advanced AI-Generated Images
